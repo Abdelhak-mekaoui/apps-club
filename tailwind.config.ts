@@ -7,14 +7,35 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    fontFamily: {
+      primary: "Poppins ",
+      body: "Poppins",
+    },
+    container: {
+      padding: {
+        DEFAULT: "1rem",
+        lg: "3rem",
+      },
+    },
+    screens: {
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+    },
     extend: {
+      colors: {
+        primary: "#E6E3EC",
+        secondary: "#ffffff",
+        tertiary: "#000000",
+        accent: "#d3795b",
+        neutral: "#322339",
+      },
       backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'logo': "url('/assets/logo.png')" // Adjust the path to your logo file
       },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 }
 export default config
