@@ -4,8 +4,6 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Logo from '/assets/logo3.png';
 import Image from 'next/image';
-import { auth } from '../firebase'
-// import { signInWithEmailAndPassword } from 'firebase/auth';
 import {signIn }from 'next-auth/react'
 
 export default function Example() {
@@ -13,15 +11,7 @@ export default function Example() {
   const [password, setPassword] = useState('')
   const router = useRouter()
 
-  // const signin = async () => {
-  //   try {
-  //     await signInWithEmailAndPassword(auth, email, password);
-  //     // Redirect or perform other actions upon successful sign-in
-  //   } catch (error) {
-  //     // Handle errors, e.g., display an error message
-  //     console.error(error);
-  //   }
-  // };
+
     return (
       <>
         <div className="flex min-h-screen flex-1 flex-col justify-center px-6 py-12 lg:px-8">
