@@ -4,8 +4,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Logo from '/assets/logo.png'
 import SlideOvers from './SlideOvers'
-
-
 export default function Navbar() {
     const [open , setOpen ] = useState(false)
   return (
