@@ -7,6 +7,7 @@ import { auth } from '../../firebase';
 import { useRouter } from 'next/navigation'
 import {signIn, useSession } from 'next-auth/react';
 import { useFormik } from 'formik';
+import UserService from '@/services/UserService';
 
 export default function Profil() {
 
@@ -17,18 +18,18 @@ const router = useRouter()
 
 const session = useSession();
 
-
+const userService = new UserService(session) ;
 
 
 type FormDataType = {
   email: string ;
-  password: string;
-  passwordAgain: string;
+  filiere : string ;
+  cne : string ;
 };
 const  initialValues : FormDataType = {
 "email":"" ,
-"password": "vvvv",
-"passwordAgain": ""
+"filiere": "",
+"cne" : ""
 }
 
 const formik = useFormik({
@@ -37,16 +38,10 @@ initialValues:initialValues,
 validate: (data : FormDataType) => {
   let errors  :  {[key: string] : string} = {} ;
   //check is empty
-  ['email', 'password', 'passwordAgain'].forEach(
+  ['email'].forEach(
     (element: string) => {
       if (data[element as keyof FormDataType] == "") {
         errors[element as keyof FormDataType] = 'Ce champ est requis !';
-      }
-
-      if (data.password != data.passwordAgain){
-        let ePass = 'Passwords do NOT match'
-        errors['password'] = ePass;
-        errors['passwordAgain'] = ePass;
       }
 
     });
@@ -56,14 +51,10 @@ return errors;
 onSubmit: (data: FormDataType) => {
   
   if (data) {
-      createUserWithEmailAndPassword(auth, formik.values['email'], formik.values['passwordAgain']).then(()=>{
-        signIn('credentials', {email : formik.values['email'], password : formik.values['password'], redirect: true, callbackUrl: '/'})
-      }).catch((e)=>{
-        setServerErrors("Server Error 500")
-        console.log(e);
-        
-      });
-
+    userService.update(formik.values).then(()=>{
+      window.location.reload();
+    })
+  
   }
 
 }
@@ -85,7 +76,9 @@ useEffect(() => {
     router.push('/')
   }else{
 if(session.status == 'authenticated'){
-    formik.setFieldValue('email' , session?.data?.user?.email);
+   userService.fetch().then((data)=>{
+    formik.setValues({email :session?.data?.user?.email ,...data} as FormDataType);
+   })
     
 }
 
@@ -93,7 +86,30 @@ if(session.status == 'authenticated'){
 
   
   
-}, [session, router])
+}, [session.status])
+
+
+ const renderInput = (name : keyof FormDataType , readOnly : boolean = false )=>{
+  return(  <div>
+    <label htmlFor={name} className="block text-sm font-medium leading-6 text-white-900">
+      {name.charAt(0).toUpperCase() + name.slice(1)}
+    </label>
+    <div className="mt-2">
+      <input
+        id={name}
+        name={name}
+        type={name}
+        readOnly = {readOnly}
+        onChange={(e) => formik.setFieldValue(name, e.target.value)}
+        value={formik.values[name]}
+        
+        className="block w-full rounded-md border-0 px-4 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-white-600 sm:text-sm sm:leading-6"
+      />
+      {getFormErrorMessage(name)}
+    </div>
+  </div>
+)
+ }
 
 
   return (
@@ -111,65 +127,13 @@ if(session.status == 'authenticated'){
         <form className="space-y-6" onSubmit={formik.handleSubmit} method="POST">
 
 
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium leading-6 text-white-900">
-              Email address
-            </label>
-            <div className="mt-2">
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                onChange={(e) => formik.setFieldValue('email', e.target.value)}
-                value={formik.values['email']}
-                
-                className="block w-full rounded-md border-0 px-4 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-white-600 sm:text-sm sm:leading-6"
-              />
-              {getFormErrorMessage('email')}
-            </div>
-          </div>
+         {renderInput('email' , true)}
 
-          <div>
-            <div className="flex items-center justify-between">
-              <label htmlFor="password" className="block text-sm font-medium leading-6 text-white-900">
-                Password
-              </label>
-            </div>
-            <div className="mt-2">
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                onChange={(e) =>  formik.setFieldValue('password' ,e.target.value)}
-                
-                className="block w-full rounded-md border-0 px-4 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-               {getFormErrorMessage('password')}
-            </div>
-          </div>
+         {renderInput('filiere' , false)}
 
-          <div>
-            <div className="flex items-center justify-between">
-              <label htmlFor="password" className="block text-sm font-medium leading-6 text-white-900">
-                Confirm password
-              </label>
-            </div>
-            <div className="mt-2">
-              <input
-                id="passwordAgain"
-                name="passwordAgain"
-                type="password"
-                autoComplete="current-password"
-                onChange={(e) =>  formik.setFieldValue('passwordAgain', e.target.value)}
+         {renderInput('cne' , false)}
 
-                
-                className="block w-full rounded-md border-0 px-4 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-               {getFormErrorMessage('passwordAgain')}
-            </div>
-          </div>
+       
 
           <div>
             <button
