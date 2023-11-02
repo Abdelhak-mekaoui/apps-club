@@ -6,6 +6,7 @@ import Logo from '/assets/logo3.png';
 import Image from 'next/image';
 import { signIn , useSession} from 'next-auth/react'
 import { Form, useFormik } from 'formik';
+import UserService from '@/services/UserService';
 
 
 export default function SignInPage() {
@@ -14,6 +15,7 @@ export default function SignInPage() {
 
 
   const session = useSession();
+  const userService = new UserService(session);
 
   const router = useRouter()
 
@@ -46,7 +48,7 @@ const  initialValues : FormDataType = {
     onSubmit: (data: FormDataType) => {
       
       if (data) {
-      signIn('credentials', {email : formik.values['email'], password : formik.values['password'], redirect: true, callbackUrl: '/'})
+     userService.signIn('Credentials' , formik.values['email'] ,  formik.values['password']) ; 
       }
 
     }
@@ -94,6 +96,7 @@ const  initialValues : FormDataType = {
                   name="email"
                   type="email"
                   autoComplete="email"
+                  value={formik.values['email']}
                   onChange={(e) => formik.setFieldValue("email", e.target.value)}
                   className="block w-full rounded-md border-0 px-4 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-white-600 sm:text-sm sm:leading-6"
                 />
@@ -117,6 +120,7 @@ const  initialValues : FormDataType = {
                   id="password"
                   name="password"
                   type="password"
+                  value={formik.values['password']}
                   autoComplete="current-password"
                   onChange={(e) => formik.setFieldValue('password', e.target.value)}
                   className="block w-full rounded-md border-0 px-4 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -140,7 +144,7 @@ const  initialValues : FormDataType = {
           </form>
           <div className="mt-5 flex items-center justify-center">
             <button className="px-4 py-2 justify-center w-full border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150"
-    onClick={()=> signIn('google')}
+    onClick={()=> userService.signIn('google')}
     >
         <Image width={60} height={60} className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo"/>
         <span>Login with Google</span>
