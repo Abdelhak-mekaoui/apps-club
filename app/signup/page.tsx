@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Logo from '/assets/logo3.png';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation'
-import {signIn, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { useFormik } from 'formik';
 import UserService from '@/services/UserService';
 
@@ -174,7 +174,7 @@ const isFormFieldInvalid = (name:keyof FormDataType) => !!(formik.touched[name] 
             </div>
             <div className="mt-5 flex items-center justify-center">
             <button className="px-4 py-2 justify-center w-full border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150"
-    onClick={()=> signIn('google')}
+    onClick={()=> userService.signIn('google')}
     >
         <Image width={60} height={60} className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo"/>
         <span>sign up with Google</span>

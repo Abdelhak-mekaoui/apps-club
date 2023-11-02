@@ -4,8 +4,8 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Logo from '/assets/logo3.png';
 import Image from 'next/image';
-import { signIn , useSession} from 'next-auth/react'
-import { Form, useFormik } from 'formik';
+import {  useSession} from 'next-auth/react'
+import { useFormik } from 'formik';
 import UserService from '@/services/UserService';
 
 
