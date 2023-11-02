@@ -6,8 +6,7 @@ import SessionProvider from './SessionProvider';
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
-import Home from './page';
-import SignInPage from './signin/page';
+
 
 const inter = Inter({ subsets: ['latin'] })
 

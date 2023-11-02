@@ -4,11 +4,17 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Logo from '/assets/logo.png'
 import SlideOvers from './SlideOvers'
-import { signIn, signOut } from 'next-auth/react'
+import { signIn, signOut, useSession } from 'next-auth/react'
+
+
+
+
 
 
 export default function Navbar() {
     const [open , setOpen ] = useState(false)
+    const session = useSession();
+
   return (
     <div className="navbar bg-base-100">
         <div className="navbar-start">
@@ -19,6 +25,9 @@ export default function Navbar() {
             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                 <li>
                     <Link href="/" >Home</Link>
+                </li>
+                <li hidden={ !( session.status == 'authenticated')}>
+                    <Link href="profil" >Profil</Link>
                 </li>
                 <li>
                     <Link href="signin" >Sign in</Link>
