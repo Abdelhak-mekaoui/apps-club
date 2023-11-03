@@ -4,6 +4,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Logo from '/assets/logo.png'
 import SlideOvers from './SlideOvers'
+import { signIn, signOut } from 'next-auth/react'
+
+
 export default function Navbar() {
     const [open , setOpen ] = useState(false)
   return (
@@ -22,6 +25,9 @@ export default function Navbar() {
                 </li>
                 <li>
                     <Link href="signup" >Sign up</Link>
+                </li>
+                <li>
+                    <span onClick={() =>signOut()} >logout</span>
                 </li>
             </ul>
             </div>

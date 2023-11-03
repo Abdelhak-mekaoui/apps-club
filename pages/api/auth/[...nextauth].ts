@@ -1,7 +1,9 @@
-import { auth } from "@/app/firebase";
+import { auth, db } from "@/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
+
 export const authOptions = {
     pages: {
         signIn: '/signin',
@@ -21,7 +23,12 @@ export const authOptions = {
                 })
                 .catch(err => {console.log(err);})
             }
-        })
-    ]
+        }),
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID as string,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
+          })
+    ],
+
 }
 export default NextAuth(authOptions)
