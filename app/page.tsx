@@ -9,7 +9,7 @@ export default function Home() {
   
   const router = useRouter()
   return (
-    <div className="bg-white">    
+    <div className="bg-grey-900 h-screen flex items-center">    
         <div className="mx-auto max-w-2xl py-28 sm:py-30 lg:py-40">
        
           <div className="text-center">
@@ -27,7 +27,7 @@ export default function Home() {
               >
                 Get started
               </a>
-              <a href="#" className="text-sm font-semibold leading-6 text-gray-400">
+              <a href="about" className="text-sm font-semibold leading-6 text-gray-400">
                 Learn more <span aria-hidden="true">→</span>
               </a>
             </div>

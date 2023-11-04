@@ -18,8 +18,6 @@ export default class UserService {
                 return signIn('credentials', { email: email, password: password, redirect: true, callbackUrl: '/' })
             case "google":
                 return signIn('google')
-
-
             default:
                 break;
         }

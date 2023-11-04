@@ -4,9 +4,11 @@ import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import {signOut, useSession} from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 export default function SlideOvers() {
   const [open, setOpen] = useState(true)
+  const router = useRouter()
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -65,7 +67,11 @@ export default function SlideOvers() {
                     </div>
                     <div className="relative mt-6 flex-1 px-4 sm:px-6">
                         {/* Your content */}            
-                        <button className="btn btn-error absolute bottom-2 mx-auto" onClick={() => signOut()}>LogOut</button>
+                        <button className="btn btn-error absolute bottom-2 mx-auto" onClick={() => {
+                          signOut()
+                          router.push('/signin')
+                        }}
+                        >LogOut</button>
                     </div>
                   </div>
                 </Dialog.Panel>

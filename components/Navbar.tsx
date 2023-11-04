@@ -5,7 +5,8 @@ import Image from 'next/image'
 import Logo from '/assets/logo.png'
 import SlideOvers from './SlideOvers'
 import { signIn, signOut, useSession } from 'next-auth/react'
-
+import Profile from 'assets/profile-icon.jpg'
+import { useRouter } from 'next/navigation'
 
 
 
@@ -14,6 +15,10 @@ import { signIn, signOut, useSession } from 'next-auth/react'
 export default function Navbar() {
     const [open , setOpen ] = useState(false)
     const session = useSession();
+    const router = useRouter()
+    const profileClick = () => {
+        router.push('/profil')
+    }
 
   return (
     <div className="navbar bg-base-100">
@@ -26,9 +31,9 @@ export default function Navbar() {
                 <li>
                     <Link href="/" >Home</Link>
                 </li>
-                <li hidden={ !( session.status == 'authenticated')}>
+                {/* <li hidden={ !( session.status == 'authenticated')}>
                     <Link href="profil" >Profil</Link>
-                </li>
+                </li> */}
                 <li>
                     <Link href="signin" >Sign in</Link>
                 </li>
@@ -47,8 +52,20 @@ export default function Navbar() {
             </div>
         </div>
         <div className="navbar-end">
-            <button className="btn btn-ghost btn-circle">
+            {/* <button className="btn btn-ghost btn-circle">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+            </button> */}
+            <button 
+                className="btn btn-ghost btn-circle border rounded-full "
+                onClick={() => profileClick()}
+            >
+                <Image
+                    hidden={ !( session.status == 'authenticated')}
+                    src={Profile}
+                    width={30}
+                    height={30}
+                    alt="Profile"
+                />
             </button>
             <button className="btn btn-ghost btn-circle"
                 onClick={() => setOpen(!open)}
@@ -58,6 +75,7 @@ export default function Navbar() {
                 <span className="badge badge-xs badge-primary indicator-item"></span>
             </div>
             </button>
+            
         </div>
         {open ? <SlideOvers /> : null}
 
