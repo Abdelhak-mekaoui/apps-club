@@ -1,21 +1,20 @@
 'use client';
+
+
+
 import React, { useEffect, useState } from 'react';
 import Logo from '/assets/logo3.png';
 import Image from 'next/image';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase';
+
 import { useRouter } from 'next/navigation'
-import {signIn, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { useFormik } from 'formik';
 import UserService from '@/services/UserService';
 
 export default function Profil() {
 
-
-    
 const [serverErrors, setServerErrors] = useState('')
-const router = useRouter()
-
+const router = useRouter();
 const session = useSession();
 
 const userService = new UserService(session) ;
@@ -73,7 +72,7 @@ const getFormErrorMessage = (name :keyof FormDataType) => {
 useEffect(() => {
 
   if (router && session && session.status == 'unauthenticated') {
-    router.push('/')
+    router.push('/signin')
   }else{
 if(session.status == 'authenticated'){
    userService.fetch().then((data)=>{

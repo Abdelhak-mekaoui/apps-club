@@ -1,9 +1,48 @@
+'use client'
+
 import { PaperClipIcon } from '@heroicons/react/20/solid'
+import { useState, useEffect } from 'react'
+import { useSession } from 'next-auth/react';
+import UserService from '@/services/UserService';
+
+
+interface UserData {
+  fullName: string;
+  email: string;
+  about: string;
+  // Add other properties as needed
+}
 
 export default function Example() {
+
+  const session = useSession();
+  const [ fullName, setFullName ] = useState('')
+  const [ email, setEmail ] = useState('') 
+  const [ about, setAbout ] = useState('')
+  const [userData, setUserData] = useState<UserData | null>(null);
+  const userService = new UserService(session);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     if (session?.status === 'authenticated') {
+  //       const userService = new UserService(session);
+  //       try {
+  //         const userData = await userService.fetch();
+  //         console.log(userData);
+  //         setUserData(userData); // Set the type explicitly
+  //       } catch (error) {
+  //         console.error(error.message);
+  //       }
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [session]);
+
+
   return (
-    <div>
-      <div className="px-4 sm:px-0">
+    <div className="mx-auto bg-white h-screen px-8 lg:px-[20%] py-10 ">
+      <div className="px-4 sm:px-0 ">
         <h3 className="text-base font-semibold leading-7 text-gray-900">Applicant Information</h3>
         <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Personal details and application.</p>
       </div>
@@ -22,10 +61,6 @@ export default function Example() {
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">margotfoster@example.com</dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-gray-900">Salary expectation</dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">$120,000</dd>
-          </div>
-          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">About</dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
               Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur
@@ -33,7 +68,7 @@ export default function Example() {
               pariatur mollit ad adipisicing reprehenderit deserunt qui eu.
             </dd>
           </div>
-          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <div className="px-4  sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 sm:mb-10">
             <dt className="text-sm font-medium leading-6 text-gray-900">Attachments</dt>
             <dd className="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
               <ul role="list" className="divide-y divide-gray-100 rounded-md border border-gray-200">
