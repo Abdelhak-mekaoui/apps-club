@@ -32,7 +32,7 @@ const config: Config = {
         neutral: "#322339",
       },
       backgroundImage: {
-        'logo': "url('/assets/logo.png')" // Adjust the path to your logo file
+        'logo': "url('/assets/logo.png')" 
       },
     },
   },
