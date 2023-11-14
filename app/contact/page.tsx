@@ -6,8 +6,8 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { Switch } from '@headlessui/react'
 
 
-function classNames(...classes: (string | undefined)[]): string {
-  return classes.filter(Boolean).join(' ');
+function classNames(...classes :Array<string>) {
+  return classes.filter(Boolean).join(' ')
 }
 
 export default function Example() {
@@ -159,7 +159,7 @@ export default function Example() {
             type="submit"
             className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
-            Let's talk
+            Let&apos;s talk
           </button>
         </div>
       </form>
