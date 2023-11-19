@@ -21,6 +21,13 @@ const callouts = [
       href: '#',
     },
     {
+      name: 'APPS Products',
+      description: 'T-shirts hoodies and more ....',
+      imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg',
+      imageAlt: 'products',
+      href: 'products',
+    },
+    {
       name: 'APPS Events',
       description: 'Journals and note-taking',
       imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg',
