@@ -12,6 +12,8 @@
     "@auth/firebase-adapter": "^1.0.3",
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "encoding": "^0.1.13",
     "firebase": "^10.5.0",
     "firebase-admin": "^11.11.0",
     "formik": "^2.4.5",

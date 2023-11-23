@@ -12,6 +12,7 @@
   }
   ```
 */
+import Image from 'next/image'
 const callouts = [
     {
       name: 'APPS Courses',
@@ -19,6 +20,13 @@ const callouts = [
       imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg',
       imageAlt: 'Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.',
       href: '#',
+    },
+    {
+      name: 'APPS Products',
+      description: 'T-shirts hoodies and more ....',
+      imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg',
+      imageAlt: 'products',
+      href: 'products',
     },
     {
       name: 'APPS Events',
@@ -47,7 +55,7 @@ const callouts = [
               {callouts.map((callout) => (
                 <div key={callout.name} className="group relative">
                   <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64">
-                    <img
+                    <Image
                       src={callout.imageSrc}
                       alt={callout.imageAlt}
                       className="h-full w-full object-cover object-center"

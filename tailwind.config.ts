@@ -34,8 +34,37 @@ const config: Config = {
       backgroundImage: {
         'logo': "url('/assets/logo.png')" 
       },
+      gridTemplateRows: {
+        '[auto,auto,1fr]': 'auto auto 1fr',
+      },
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [
+    require("daisyui"),
+    require('@tailwindcss/aspect-ratio'),
+  ],
 }
 export default config
+
+
+/*
+  This example requires some changes to your config:
+  
+  ```
+  // tailwind.config.js
+  module.exports = {
+    // ...
+    theme: {
+      extend: {
+        gridTemplateRows: {
+          '[auto,auto,1fr]': 'auto auto 1fr',
+        },
+      },
+    },
+    plugins: [
+      // ...
+      require('@tailwindcss/aspect-ratio'),
+    ],
+  }
+  ```
+*/
