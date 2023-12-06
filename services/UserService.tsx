@@ -7,7 +7,7 @@ import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
 
 export default class UserService {
     private session: any;
-    private table : string = 'users' ;
+    private collection : string = 'users' ;
     constructor(session: any) {
         this.session = session;
     }
@@ -43,7 +43,7 @@ export default class UserService {
 
     public async fetch(){
         if (this.session.status = 'authenticated') {
-            const docRef = doc(db, `${this.table}/${this.session.data.user.email}`);
+            const docRef = doc(db, `${this.collection}/${this.session.data.user.email}`);
         let d = await    getDoc(docRef)
         return d.data()
         }

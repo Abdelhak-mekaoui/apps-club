@@ -34,6 +34,12 @@ export default function Navbar() {
                 {/* <li hidden={ !( session.status == 'authenticated')}>
                     <Link href="profil" >Profil</Link>
                 </li> */}
+                   <li>
+                    <Link href="#" >Formations</Link>
+                </li>
+                 <li>
+                    <Link href="products" >Producs</Link>
+                </li>
                 <li>
                     <Link href="signin" >Sign in</Link>
                 </li>
