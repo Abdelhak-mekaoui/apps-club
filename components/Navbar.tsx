@@ -38,7 +38,7 @@ export default function Navbar() {
                     <Link href="#" >Formations</Link>
                 </li>
                  <li>
-                    <Link href="products" >Producs</Link>
+                    <Link href="products" >Products</Link>
                 </li>
                 <li>
                     <Link href="signin" >Sign in</Link>

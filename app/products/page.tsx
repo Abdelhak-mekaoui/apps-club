@@ -3,6 +3,7 @@ import ProductService from "@/services/ProductService"
 import { useSession } from "next-auth/react";
 import Image from "next/image"
 import { useEffect, useState } from "react"
+import { useRouter } from 'next/navigation'
 
   export default function Products() {
  
@@ -24,7 +25,7 @@ productService.getAll().then((query)=>{
 })
  
 }, [])
-
+const router = useRouter()
 
     
     return (
@@ -41,6 +42,7 @@ productService.getAll().then((query)=>{
                   height={100}
                     src={product.imageSrc}
                     alt={product.imageAlt}
+                    onClick={()=>router.push(`/products/${product.id}`)}
                     className="h-full w-full object-cover object-center group-hover:opacity-75"
                   />
                 </div>
